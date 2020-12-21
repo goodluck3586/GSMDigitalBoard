@@ -1,0 +1,25 @@
+{
+  "name": "gsmdigitalboard",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon ./bin/www",
+    "start": "pm2 start ./bin/www -i 0"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-mysql-session": "^2.1.5",
+    "express-session": "^1.17.1",
+    "helmet": "^4.2.0",
+    "hpp": "^0.2.3",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "pm2": "^4.5.1",
+    "serve-favicon": "^2.5.0"
+  }
+}
