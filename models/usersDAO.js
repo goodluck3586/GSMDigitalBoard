@@ -1,4 +1,5 @@
 var connection = require('./db')
+const encrypt = require('../lib/encrypt')
 
 exports.selectUser = function(email, cb){
     connection.query('SELECT * FROM user WHERE email = ?', [email], function (error, results, fields) {
@@ -22,7 +23,7 @@ exports.selectAllUsers = (cb)=>{
 
 exports.insertNewUser = (body, cb)=>{
     sql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
-    values = [body.email, body.pwd, body.name, body.role];
+    values = [body.email, encrypt(body.pwd), body.name, body.role];
     connection.query(sql, values, (error, results, fields)=>{
         if(error){
             console.log(error);

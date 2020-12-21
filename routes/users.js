@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/usersDAO');
+const encrypt = require('../lib/encrypt')
 
 // 로그인 처리
 router.post('/login', (req, res)=>{
@@ -14,7 +15,7 @@ router.post('/login', (req, res)=>{
       if(results[0] == undefined){
         res.send('<h1>로그인 실패</h1>')
       }else{
-        if(req.body.email === results[0].email && req.body.pwd === results[0].pwd){
+        if(req.body.email === results[0].email && encrypt(req.body.pwd) === results[0].pwd){
           //res.send('<h1>로그인 성공</h1>')
           // 로그인 성공 req.session에 기록
           req.session.isLogin = true;
@@ -51,8 +52,7 @@ router.get('/admin', (req, res)=>{
 
 // 새로운 사용자 추가 페이지
 router.post('/admin/addNewUser', (req, res)=>{
-  // console.log('req.body', req.body)
-  if(req.session.isLogin){
+  if(req.session.isLogin && req.session.userEmail === 'admin@gsm.hs.kr'){
     if(req.body.pwd === req.body.pwdr){
       model.insertNewUser(req.body, ()=>console.log(`${req.body.email} 사용자 추가 성공`))
     }
